@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: civic-backend-api
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - NODE_ENV=production
+      - JWT_SECRET=super_secret_gov_key_2026_jwt_token_auth
+      - DATABASE_URL=postgresql://gov_user:gov_password@postgres:5432/civic_db
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - postgres
+      - redis
+    restart: always
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: civic-frontend-app
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: always
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: civic-postgres-db
+    environment:
+      POSTGRES_USER: gov_user
+      POSTGRES_PASSWORD: gov_password
+      POSTGRES_DB: civic_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+
+  redis:
+    image: redis:7-alpine
+    container_name: civic-redis-cache
+    ports:
+      - "6379:6379"
+    restart: always
+
+  prometheus:
+    image: prom/prometheus:v2.45.0
+    container_name: civic-prometheus-monitor
+    ports:
+      - "9090:9090"
+    restart: always
+
+volumes:
+  postgres_data:
