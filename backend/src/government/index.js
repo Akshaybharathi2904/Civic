@@ -137,6 +137,30 @@ export {
   VerificationController,
 } from './modules/evidence/index.js';
 
+export {
+  EscalationLevelEnum,
+  SLAConfiguration,
+  EscalationRecord,
+  ConfigureSlaDTO,
+  EscalateComplaintDTO,
+  ResolveEscalationDTO,
+  SlaMetricsDTO,
+  EscalationNotificationContract,
+  MockEscalationNotificationService,
+  SlaRepositoryContract,
+  MockSlaRepository,
+  EscalationRepositoryContract,
+  MockEscalationRepository,
+  SlaServiceContract,
+  SlaService,
+  EscalationServiceContract,
+  EscalationService,
+  SlaMonitoringService,
+  MockBackgroundScheduler,
+  SlaController,
+  EscalationController,
+} from './modules/escalation/index.js';
+
 export { GovernmentComplaintContract, MockGovernmentComplaintService } from './modules/complaints/GovernmentComplaintModule.js';
 export { ResolutionWorkflowContract, MockResolutionWorkflowService } from './modules/workflow/ResolutionWorkflowModule.js';
 export { GovernmentNotificationContract, MockGovernmentNotificationService } from './modules/notifications/GovernmentNotificationModule.js';
