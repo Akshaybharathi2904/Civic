@@ -183,9 +183,28 @@ export {
   CitizenNotificationController,
 } from './modules/notifications/index.js';
 
+export {
+  DashboardMetric,
+  AnalyticsReport,
+  AnalyticsFilterDTO,
+  GenerateReportDTO,
+  DashboardSummaryDTO,
+  AnalyticsRepositoryContract,
+  MockAnalyticsRepository,
+  ReportRepositoryContract,
+  MockReportRepository,
+  DashboardServiceContract,
+  DashboardService,
+  AnalyticsServiceContract,
+  AnalyticsService,
+  ReportGenerationServiceContract,
+  ReportGenerationService,
+  DashboardController,
+  AnalyticsController,
+} from './modules/analytics/index.js';
+
 export { GovernmentComplaintContract, MockGovernmentComplaintService } from './modules/complaints/GovernmentComplaintModule.js';
 export { ResolutionWorkflowContract, MockResolutionWorkflowService } from './modules/workflow/ResolutionWorkflowModule.js';
-export { GovernmentAnalyticsContract, MockGovernmentAnalyticsService } from './modules/analytics/GovernmentAnalyticsModule.js';
 export { AuditContract, MockAuditService } from './modules/audit/AuditModule.js';
 
 // Config, Errors, Logging, Mocks

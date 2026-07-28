@@ -1,0 +1,10 @@
+export { DashboardMetric } from './models/DashboardMetric.js';
+export { AnalyticsReport } from './models/AnalyticsReport.js';
+export { AnalyticsFilterDTO, GenerateReportDTO, DashboardSummaryDTO } from './dtos/AnalyticsDTOs.js';
+export { AnalyticsRepositoryContract, MockAnalyticsRepository } from './repositories/MockAnalyticsRepository.js';
+export { ReportRepositoryContract, MockReportRepository } from './repositories/MockReportRepository.js';
+export { DashboardServiceContract, DashboardService } from './services/DashboardService.js';
+export { AnalyticsServiceContract, AnalyticsService } from './services/AnalyticsService.js';
+export { ReportGenerationServiceContract, ReportGenerationService } from './services/ReportGenerationService.js';
+export { DashboardController } from './controllers/DashboardController.js';
+export { AnalyticsController } from './controllers/AnalyticsController.js';
