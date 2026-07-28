@@ -3,7 +3,9 @@ export { GovernmentUser } from './domain/entities/GovernmentUser.js';
 export { Role } from './domain/entities/Role.js';
 export { Permission } from './domain/entities/Permission.js';
 export { Department } from './domain/entities/Department.js';
+export { Office } from './domain/entities/Office.js';
 export { Officer } from './domain/entities/Officer.js';
+export { RegionAssignment } from './domain/entities/RegionAssignment.js';
 export { Complaint } from './domain/entities/Complaint.js';
 export { Assignment } from './domain/entities/Assignment.js';
 export { Workflow } from './domain/entities/Workflow.js';
@@ -16,7 +18,9 @@ export { AuditLog } from './domain/entities/AuditLog.js';
 export { GovernmentUserRepositoryContract } from './domain/repositories/GovernmentUserRepositoryContract.js';
 export { RoleRepositoryContract } from './domain/repositories/RoleRepositoryContract.js';
 export { DepartmentRepositoryContract } from './domain/repositories/DepartmentRepositoryContract.js';
+export { OfficeRepositoryContract } from './domain/repositories/OfficeRepositoryContract.js';
 export { OfficerRepositoryContract } from './domain/repositories/OfficerRepositoryContract.js';
+export { RegionAssignmentRepositoryContract } from './domain/repositories/RegionAssignmentRepositoryContract.js';
 export { GovernmentComplaintRepositoryContract } from './domain/repositories/GovernmentComplaintRepositoryContract.js';
 export { AssignmentRepositoryContract } from './domain/repositories/AssignmentRepositoryContract.js';
 export { GovernmentWorkflowRepositoryContract } from './domain/repositories/GovernmentWorkflowRepositoryContract.js';
@@ -43,8 +47,10 @@ export {
 } from './modules/auth/index.js';
 
 export { RoleContract, MockRoleService } from './modules/roles/RoleModule.js';
-export { DepartmentContract, MockDepartmentService } from './modules/departments/DepartmentModule.js';
-export { OfficerContract, MockOfficerService } from './modules/officers/OfficerModule.js';
+export { DepartmentServiceContract, DepartmentService, DepartmentController } from './modules/departments/DepartmentModule.js';
+export { OfficeServiceContract, OfficeService, OfficeController } from './modules/offices/index.js';
+export { OfficerServiceContract, OfficerService, OfficerController } from './modules/officers/index.js';
+
 export { GovernmentComplaintContract, MockGovernmentComplaintService } from './modules/complaints/GovernmentComplaintModule.js';
 export { AssignmentContract, MockAssignmentService } from './modules/assignments/AssignmentModule.js';
 export { ResolutionWorkflowContract, MockResolutionWorkflowService } from './modules/workflow/ResolutionWorkflowModule.js';
@@ -59,5 +65,7 @@ export { GovernmentLogger } from './logging/GovernmentLogger.js';
 export {
   MockGovernmentUserRepository,
   MockDepartmentRepository,
+  MockOfficeRepository,
+  MockRegionAssignmentRepository,
   MockGovernmentComplaintRepository,
 } from './infrastructure/mocks/MockGovernmentRepositories.js';

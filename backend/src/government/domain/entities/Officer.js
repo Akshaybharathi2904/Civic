@@ -4,17 +4,26 @@ export class Officer {
     name,
     badgeNumber,
     designation = 'Field Inspector',
-    departmentId,
-    activeCases = 0,
+    email = '',
     phone = '',
+    departmentId,
+    officeId = null,
+    status = 'ACTIVE',
+    availabilityStatus = 'AVAILABLE',
+    activeCases = 0,
   }) {
     this.id = id;
     this.name = name;
     this.badgeNumber = badgeNumber;
     this.designation = designation;
-    this.departmentId = departmentId;
-    this.activeCases = activeCases;
+    this.email = email;
     this.phone = phone;
+    this.departmentId = departmentId;
+    this.officeId = officeId;
+    this.status = status; // ACTIVE, ON_LEAVE, SUSPENDED, INACTIVE
+    this.availabilityStatus = availabilityStatus; // AVAILABLE, BUSY, ON_FIELD_DISPATCH, OFF_DUTY
+    this.activeCases = activeCases;
+    this.createdAt = new Date().toISOString();
   }
 }
 
