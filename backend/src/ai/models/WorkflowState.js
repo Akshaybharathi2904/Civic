@@ -12,15 +12,20 @@ export const WorkflowStateEnum = Object.freeze({
 });
 
 export class WorkflowState {
-  constructor(complaintId, initialState = WorkflowStateEnum.PENDING) {
-    this.complaintId = complaintId;
+  constructor(id, initialState = WorkflowStateEnum.PENDING) {
+    this.id = id;
+    this.complaintId = id;
     this.currentState = initialState;
-    this.history = [{ state: initialState, timestamp: new Date().toISOString() }];
+    this.history = [{ state: initialState, note: 'Workflow initialized', timestamp: new Date().toISOString() }];
   }
 
-  transitionTo(nextState) {
+  transitionTo(nextState, note = '') {
     this.currentState = nextState;
-    this.history.push({ state: nextState, timestamp: new Date().toISOString() });
+    this.history.push({
+      state: nextState,
+      note,
+      timestamp: new Date().toISOString(),
+    });
   }
 }
 

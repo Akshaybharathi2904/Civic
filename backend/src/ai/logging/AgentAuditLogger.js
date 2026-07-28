@@ -6,18 +6,24 @@ export class AgentAuditLogger {
 
     try {
       if (prisma && complaintId) {
+        // Enriched output containing reasoning
+        let finalOutput = output;
+        if (reasoning) {
+          const parsed = typeof output === 'object' ? output : (JSON.parse(output || '{}'));
+          finalOutput = JSON.stringify({ ...parsed, reasoning });
+        }
+
         await prisma.agentLog.create({
           data: {
             complaintId,
             stepNumber: Number(stepNumber) || 1,
             agentName,
             confidence: Number(confidence) || 0.95,
-            reasoning: reasoning || '',
             status: status || 'success',
             executionTime: Number(executionTime) || 0,
             input: typeof input === 'object' ? JSON.stringify(input) : input || null,
-            output: typeof output === 'object' ? JSON.stringify(output) : output || null,
-            error: error || null,
+            output: typeof finalOutput === 'object' ? JSON.stringify(finalOutput) : finalOutput || null,
+            errorMessage: error ? (error.message || String(error)) : null,
           },
         });
       }

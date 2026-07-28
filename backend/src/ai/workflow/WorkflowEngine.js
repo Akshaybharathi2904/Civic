@@ -1,29 +1,51 @@
-import { WorkflowStateEnum } from '../models/WorkflowState.js';
+import { WorkflowState, WorkflowStateEnum } from '../models/WorkflowState.js';
 
 export class WorkflowEngine {
   constructor() {
-    this.registeredPipelines = new Map();
+    this.activeWorkflows = new Map();
   }
 
-  registerPipeline(pipelineName, agentList = []) {
-    this.registeredPipelines.set(pipelineName, agentList);
+  /**
+   * Create & register a new workflow instance
+   */
+  createWorkflow(complaintId = null) {
+    const id = complaintId || `wf_${Date.now()}_${Math.floor(Math.random() * 10000)}`;
+    const workflow = new WorkflowState(id, WorkflowStateEnum.PENDING);
+    this.activeWorkflows.set(id, workflow);
+    return workflow;
   }
 
-  getPipeline(pipelineName = 'default') {
-    return this.registeredPipelines.get(pipelineName) || [];
+  /**
+   * Get active workflow by ID
+   */
+  getWorkflow(workflowId) {
+    return this.activeWorkflows.get(workflowId) || null;
   }
 
-  getNextState(currentState) {
-    const transitions = {
-      [WorkflowStateEnum.PENDING]: WorkflowStateEnum.UNDERSTANDING,
-      [WorkflowStateEnum.UNDERSTANDING]: WorkflowStateEnum.VISION_ANALYSIS,
-      [WorkflowStateEnum.VISION_ANALYSIS]: WorkflowStateEnum.LOCATION_INTELLIGENCE,
-      [WorkflowStateEnum.LOCATION_INTELLIGENCE]: WorkflowStateEnum.DUPLICATE_DETECTION,
-      [WorkflowStateEnum.DUPLICATE_DETECTION]: WorkflowStateEnum.DEPARTMENT_ROUTING,
-      [WorkflowStateEnum.DEPARTMENT_ROUTING]: WorkflowStateEnum.PRIORITY_SCORING,
-      [WorkflowStateEnum.PRIORITY_SCORING]: WorkflowStateEnum.COMPLETED,
-    };
-    return transitions[currentState] || WorkflowStateEnum.COMPLETED;
+  /**
+   * Transition workflow to next state with history logging
+   */
+  transitionState(workflowId, nextState, note = '') {
+    const workflow = this.getWorkflow(workflowId);
+    if (workflow) {
+      workflow.transitionTo(nextState, note);
+    }
+    return workflow;
+  }
+
+  /**
+   * Get complete state transition history
+   */
+  getHistory(workflowId) {
+    const workflow = this.getWorkflow(workflowId);
+    return workflow ? workflow.history : [];
+  }
+
+  /**
+   * Remove workflow instance upon completion or failure
+   */
+  clearWorkflow(workflowId) {
+    this.activeWorkflows.delete(workflowId);
   }
 }
 

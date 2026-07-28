@@ -1,4 +1,5 @@
 export { AgentOrchestrator } from './orchestrator/AgentOrchestrator.js';
+export { WorkflowEngine } from './workflow/WorkflowEngine.js';
 export { BaseAgent } from './agents/BaseAgent.js';
 export { AgentContext } from './models/AgentContext.js';
 export { AgentResult } from './models/AgentResult.js';
