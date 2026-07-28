@@ -1,35 +1,43 @@
-import React, { useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
-import { useTheme } from '../contexts/ThemeContext';
+import React, { useState, useRef, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { useAuth } from '../modules/auth/context/AuthContext';
+import { useTheme } from '../shared/theme/ThemeContext';
+import { UserMenu } from '../modules/auth/components/UserMenu';
+import { NotificationCenter } from '../modules/notifications/components/NotificationCenter';
 import {
-  ShieldAlert,
   Sun,
   Moon,
-  LogOut,
-  User as UserIcon,
   LayoutDashboard,
   PlusCircle,
   MapPin,
   BarChart3,
   Bell,
   Cpu,
-  Building2
+  Building2,
 } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
-  const { user, logout, isAuthenticated } = useAuth();
+  const { user, isAuthenticated } = useAuth();
   const { theme, toggleTheme } = useTheme();
-  const navigate = useNavigate();
   const location = useLocation();
   const [showNotifications, setShowNotifications] = useState(false);
+  const notifRef = useRef<HTMLDivElement>(null);
 
   const isActive = (path: string) => location.pathname === path;
 
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (notifRef.current && !notifRef.current.contains(e.target as Node)) {
+        setShowNotifications(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   return (
-    <header className="sticky top-0 z-50 glass-panel border-b border-slate-800/80">
+    <header className="sticky top-0 z-50 bg-slate-950/80 backdrop-blur-md border-b border-slate-800/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        
         {/* Brand Logo */}
         <Link to="/" className="flex items-center space-x-3 group">
           <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform">
@@ -40,8 +48,8 @@ export const Navbar: React.FC = () => {
               <span className="font-extrabold text-xl tracking-tight text-white font-outfit">
                 Civic<span className="text-cyan-400">Swarm</span>
               </span>
-              <span className="px-2 py-0.5 text-[10px] font-semibold bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 rounded-full">
-                AI MESH v2.6
+              <span className="px-2 py-0.5 text-[10px] font-semibold bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 rounded-full font-mono">
+                v2.6
               </span>
             </div>
             <p className="text-[10px] text-slate-400 -mt-1 font-mono">Multi-Agent GovTech</p>
@@ -126,34 +134,26 @@ export const Navbar: React.FC = () => {
 
           {isAuthenticated ? (
             <div className="flex items-center space-x-3">
-              <div className="relative">
+              <div className="relative" ref={notifRef}>
                 <button
                   onClick={() => setShowNotifications(!showNotifications)}
                   className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/60 transition-colors relative"
+                  title="Notifications"
                 >
                   <Bell className="w-5 h-5" />
                   <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-cyan-500 animate-ping" />
                   <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-cyan-500" />
                 </button>
+
+                {showNotifications && (
+                  <div className="absolute right-0 mt-2 z-50">
+                    <NotificationCenter onClose={() => setShowNotifications(false)} />
+                  </div>
+                )}
               </div>
 
-              <div className="flex items-center space-x-2 pl-2 border-l border-slate-800">
-                <img
-                  src={user?.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=100'}
-                  alt={user?.name}
-                  className="w-8 h-8 rounded-full border border-cyan-500/40 object-cover"
-                />
-                <div className="hidden lg:block text-left">
-                  <p className="text-xs font-semibold text-white leading-tight">{user?.name}</p>
-                  <span className="text-[10px] font-mono text-cyan-400 uppercase">{user?.role}</span>
-                </div>
-                <button
-                  onClick={logout}
-                  className="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition-colors ml-1"
-                  title="Logout"
-                >
-                  <LogOut className="w-4 h-4" />
-                </button>
+              <div className="pl-2 border-l border-slate-800">
+                <UserMenu />
               </div>
             </div>
           ) : (
