@@ -90,11 +90,32 @@ export {
   ProcessingMetricsDTO,
   StateMachineValidator,
   MockLifecycleEventPublisher,
+  StatusHistoryRepositoryContract,
   MockStatusHistoryRepository,
   LifecycleServiceContract,
   LifecycleService,
   LifecycleController,
 } from './modules/lifecycle/index.js';
+
+export {
+  WorkProgressStateEnum,
+  WorkProgress,
+  InternalNote,
+  UpdateProgressDTO,
+  AddInternalNoteDTO,
+  SlaCountdownDTO,
+  WorkProgressRepositoryContract,
+  MockWorkProgressRepository,
+  InternalNoteRepositoryContract,
+  MockInternalNoteRepository,
+  WorkProgressServiceContract,
+  WorkProgressService,
+  InternalNotesServiceContract,
+  InternalNotesService,
+  WorkspaceServiceContract,
+  WorkspaceService,
+  FieldOfficerController,
+} from './modules/workspace/index.js';
 
 export { GovernmentComplaintContract, MockGovernmentComplaintService } from './modules/complaints/GovernmentComplaintModule.js';
 export { ResolutionWorkflowContract, MockResolutionWorkflowService } from './modules/workflow/ResolutionWorkflowModule.js';
