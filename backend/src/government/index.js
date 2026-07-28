@@ -117,6 +117,26 @@ export {
   FieldOfficerController,
 } from './modules/workspace/index.js';
 
+export {
+  EvidenceTypeEnum,
+  VerificationStatusEnum,
+  FileStorageContract,
+  MockFileStorage,
+  UploadEvidenceDTO,
+  EvidenceSubmissionDTO,
+  ReviewVerificationDTO,
+  EvidenceRepositoryContract,
+  MockEvidenceRepository,
+  VerificationRepositoryContract,
+  MockVerificationRepository,
+  EvidenceServiceContract,
+  EvidenceService,
+  VerificationServiceContract,
+  VerificationService,
+  EvidenceController,
+  VerificationController,
+} from './modules/evidence/index.js';
+
 export { GovernmentComplaintContract, MockGovernmentComplaintService } from './modules/complaints/GovernmentComplaintModule.js';
 export { ResolutionWorkflowContract, MockResolutionWorkflowService } from './modules/workflow/ResolutionWorkflowModule.js';
 export { GovernmentNotificationContract, MockGovernmentNotificationService } from './modules/notifications/GovernmentNotificationModule.js';
