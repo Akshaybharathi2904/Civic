@@ -10,22 +10,36 @@ export class MockSimilarityEngine extends SimilarityEngineContract {
     const distMeters = calculateDistanceMeters(inputDTO.latitude, inputDTO.longitude, candidate.latitude, candidate.longitude);
     const geoScore = Math.max(0, 1 - (distMeters / DuplicateConfig.MAX_SPATIAL_RADIUS_METERS));
 
-    // 2. Summary Text Similarity (Jaccard token overlap)
-    const inputTokens = new Set((inputDTO.aiSummary || '').toLowerCase().split(/\s+/).filter(w => w.length > 2));
-    const candTokens = new Set((candidate.aiSummary || candidate.title || '').toLowerCase().split(/\s+/).filter(w => w.length > 2));
+    // 2. Summary Text Similarity (Normalized word stems)
+    const tokenize = (text = '') =>
+      text.toLowerCase()
+        .replace(/ai analysis identified|issue classified under|severity level/g, '')
+        .split(/[\s,\.\-]+/)
+        .map(w => w.replace(/[^a-z0-9]/gi, '').trim())
+        .filter(w => w.length > 2);
+
+    const inputTokens = new Set(tokenize(inputDTO.aiSummary || inputDTO.title || ''));
+    const candTokens = new Set(tokenize(candidate.aiSummary || candidate.title || ''));
+
     const intersection = new Set([...inputTokens].filter(x => candTokens.has(x)));
     const union = new Set([...inputTokens, ...candTokens]);
-    const summaryScore = union.size > 0 ? (intersection.size / union.size) : 0.5;
+    const summaryScore = union.size > 0 ? Math.max(0.65, (intersection.size / union.size)) : 0.75;
 
     // 3. Category & Issue Type Match
-    const categoryScore = (inputDTO.category && candidate.category && inputDTO.category.toLowerCase() === candidate.category.toLowerCase()) ? 1.0 : 0.2;
+    const categoryScore = (
+      (inputDTO.category && candidate.category && inputDTO.category.toLowerCase() === candidate.category.toLowerCase()) ||
+      (inputDTO.issueType && candidate.issueType && inputDTO.issueType.toLowerCase().includes(candidate.issueType.toLowerCase()))
+    ) ? 1.0 : 0.4;
 
     // 4. Keyword Overlap
-    const inputKw = new Set((inputDTO.keywords || []).map(k => k.toLowerCase()));
-    const candKw = new Set((candidate.keywords || []).map(k => k.toLowerCase()));
+    const normalizeKw = (list = []) =>
+      list.flatMap(k => tokenize(k));
+
+    const inputKw = new Set(normalizeKw(inputDTO.keywords));
+    const candKw = new Set(normalizeKw(candidate.keywords));
     const kwIntersect = new Set([...inputKw].filter(x => candKw.has(x)));
     const kwUnion = new Set([...inputKw, ...candKw]);
-    const keywordScore = kwUnion.size > 0 ? (kwIntersect.size / kwUnion.size) : 0.4;
+    const keywordScore = kwUnion.size > 0 ? Math.max(0.60, (kwIntersect.size / kwUnion.size)) : 0.70;
 
     // 5. Time Proximity Score (Decay over 72h)
     const timeDeltaMs = Math.abs(new Date(inputDTO.timestamp).getTime() - new Date(candidate.createdAt).getTime());

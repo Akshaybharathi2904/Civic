@@ -41,7 +41,7 @@ export class WorkflowOrchestrator extends WorkflowOrchestratorContract {
    */
   async createWorkflow(rawInput) {
     const inputDTO = new CreateWorkflowInputDTO(rawInput);
-    const instance = await this.stateManager.createWorkflow(inputDTO.complaintId);
+    const instance = await this.stateManager.createWorkflow(inputDTO.complaintId, rawInput);
     
     await this.eventPublisher.publishEvent(OrchestratorConfig.EVENT_TYPES.WORKFLOW_STARTED, {
       workflowId: instance.id,
@@ -64,7 +64,7 @@ export class WorkflowOrchestrator extends WorkflowOrchestratorContract {
       if (!instance) {
         throw new WorkflowOrchestrationError(`Workflow with ID ${inputOrWorkflowId} not found.`);
       }
-      inputDTO = new CreateWorkflowInputDTO({ complaintId: instance.complaintId, title: 'Civic Issue', latitude: 11.0084, longitude: 76.9508 });
+      inputDTO = new CreateWorkflowInputDTO(instance.rawInput || { complaintId: instance.complaintId, title: 'Civic Issue', latitude: 11.0084, longitude: 76.9508 });
     } else {
       const created = await this.createWorkflow(inputOrWorkflowId);
       instance = created.instance;

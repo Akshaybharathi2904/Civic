@@ -1,9 +1,10 @@
 import { OrchestratorConfig } from '../config/orchestrator.config.js';
 
 export class WorkflowInstance {
-  constructor(workflowId, complaintId) {
+  constructor(workflowId, complaintId, rawInput = {}) {
     this.id = workflowId;
     this.complaintId = complaintId;
+    this.rawInput = rawInput;
     this.currentState = OrchestratorConfig.WORKFLOW_STATUSES.CREATED;
     this.history = [
       {

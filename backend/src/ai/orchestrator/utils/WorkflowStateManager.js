@@ -5,9 +5,9 @@ export class WorkflowStateManager {
     this.repository = repository;
   }
 
-  async createWorkflow(complaintId) {
+  async createWorkflow(complaintId, rawInput = {}) {
     const workflowId = `wf_${Date.now()}_${Math.floor(Math.random() * 10000)}`;
-    const instance = new WorkflowInstance(workflowId, complaintId);
+    const instance = new WorkflowInstance(workflowId, complaintId, rawInput);
     await this.repository.saveWorkflow(instance);
     return instance;
   }
