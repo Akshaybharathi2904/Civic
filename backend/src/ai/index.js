@@ -19,6 +19,7 @@ export { ComplaintUnderstandingAgent } from './agents/ComplaintUnderstandingAgen
 export { VisionAnalysisAgent } from './agents/VisionAnalysisAgent.js';
 export { LocationIntelligenceAgent } from './agents/LocationIntelligenceAgent.js';
 export { DuplicateDetectionAgent } from './agents/DuplicateDetectionAgent.js';
+export { CommunityValidationAgent } from './agents/CommunityValidationAgent.js';
 export { DepartmentRoutingAgent } from './agents/DepartmentRoutingAgent.js';
 export { PriorityScoringAgent } from './agents/PriorityScoringAgent.js';
 export { GovernmentAnalyticsAgent } from './agents/GovernmentAnalyticsAgent.js';

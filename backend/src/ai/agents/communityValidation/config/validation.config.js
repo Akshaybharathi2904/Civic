@@ -1,0 +1,20 @@
+export const ValidationConfig = Object.freeze({
+  CONFIRMATION_THRESHOLD_PERCENT: 70, // >= 70% confirmations -> VERIFIED
+  REJECTION_THRESHOLD_PERCENT: 60,   // >= 60% rejections -> FLAGGED_INVALID
+  MIN_VOTES_REQUIRED: 3,
+  NOTIFICATION_RADIUS_METERS: 1000,
+  DEFAULT_CONFIDENCE: 0.92,
+  ACTIONS: {
+    CONFIRM: 'confirm',
+    REJECT: 'reject',
+    SKIP: 'skip',
+  },
+  STATUSES: {
+    VERIFIED: 'VERIFIED',
+    FLAGGED_INVALID: 'FLAGGED_INVALID',
+    PENDING_COMMUNITY_INPUT: 'PENDING_COMMUNITY_INPUT',
+    HIGH_COMMUNITY_CONCERN: 'HIGH_COMMUNITY_CONCERN',
+  },
+});
+
+export default ValidationConfig;
