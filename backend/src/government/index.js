@@ -51,6 +51,19 @@ export { DepartmentServiceContract, DepartmentService, DepartmentController } fr
 export { OfficeServiceContract, OfficeService, OfficeController } from './modules/offices/index.js';
 export { OfficerServiceContract, OfficerService, OfficerController } from './modules/officers/index.js';
 
+export {
+  QueueStatusEnum,
+  QueuedComplaint,
+  QueueFilterDTO,
+  IngestQueueComplaintDTO,
+  QueueStatsDTO,
+  ComplaintQueueRepositoryContract,
+  MockComplaintQueueRepository,
+  ComplaintQueueServiceContract,
+  ComplaintQueueService,
+  ComplaintQueueController,
+} from './modules/queue/index.js';
+
 export { GovernmentComplaintContract, MockGovernmentComplaintService } from './modules/complaints/GovernmentComplaintModule.js';
 export { AssignmentContract, MockAssignmentService } from './modules/assignments/AssignmentModule.js';
 export { ResolutionWorkflowContract, MockResolutionWorkflowService } from './modules/workflow/ResolutionWorkflowModule.js';
