@@ -64,8 +64,23 @@ export {
   ComplaintQueueController,
 } from './modules/queue/index.js';
 
+export {
+  AssignmentStatusEnum,
+  AssignComplaintDTO,
+  ReassignComplaintDTO,
+  AssignmentDecisionDTO,
+  OfficerRecommendationDTO,
+  WorkloadCalculator,
+  OfficerAvailabilityService,
+  RecommendationService,
+  MockAssignmentNotificationService,
+  MockAssignmentRepository,
+  AssignmentServiceContract,
+  AssignmentService,
+  AssignmentController,
+} from './modules/assignments/index.js';
+
 export { GovernmentComplaintContract, MockGovernmentComplaintService } from './modules/complaints/GovernmentComplaintModule.js';
-export { AssignmentContract, MockAssignmentService } from './modules/assignments/AssignmentModule.js';
 export { ResolutionWorkflowContract, MockResolutionWorkflowService } from './modules/workflow/ResolutionWorkflowModule.js';
 export { GovernmentNotificationContract, MockGovernmentNotificationService } from './modules/notifications/GovernmentNotificationModule.js';
 export { GovernmentAnalyticsContract, MockGovernmentAnalyticsService } from './modules/analytics/GovernmentAnalyticsModule.js';
