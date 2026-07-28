@@ -24,7 +24,24 @@ export { NotificationRepositoryContract } from './domain/repositories/Notificati
 export { AuditLogRepositoryContract } from './domain/repositories/AuditLogRepositoryContract.js';
 
 // Feature Modules
-export { AuthContract, MockAuthService } from './modules/auth/AuthModule.js';
+export {
+  AuthConfig,
+  PermissionEnum,
+  RoleMatrix,
+  GovernmentUserAuth,
+  BCryptPasswordEncoder,
+  JwtService,
+  UserDetailsService,
+  AuthService,
+  AuthController,
+  createJwtAuthenticationFilter,
+  requireAuth,
+  requireRole,
+  requirePermission,
+  AuthenticationException,
+  AccessDeniedException,
+} from './modules/auth/index.js';
+
 export { RoleContract, MockRoleService } from './modules/roles/RoleModule.js';
 export { DepartmentContract, MockDepartmentService } from './modules/departments/DepartmentModule.js';
 export { OfficerContract, MockOfficerService } from './modules/officers/OfficerModule.js';
