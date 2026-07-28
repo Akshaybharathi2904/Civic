@@ -1,0 +1,46 @@
+// Domain Entities
+export { GovernmentUser } from './domain/entities/GovernmentUser.js';
+export { Role } from './domain/entities/Role.js';
+export { Permission } from './domain/entities/Permission.js';
+export { Department } from './domain/entities/Department.js';
+export { Officer } from './domain/entities/Officer.js';
+export { Complaint } from './domain/entities/Complaint.js';
+export { Assignment } from './domain/entities/Assignment.js';
+export { Workflow } from './domain/entities/Workflow.js';
+export { StatusHistory } from './domain/entities/StatusHistory.js';
+export { Evidence } from './domain/entities/Evidence.js';
+export { Notification } from './domain/entities/Notification.js';
+export { AuditLog } from './domain/entities/AuditLog.js';
+
+// Repository Contracts
+export { GovernmentUserRepositoryContract } from './domain/repositories/GovernmentUserRepositoryContract.js';
+export { RoleRepositoryContract } from './domain/repositories/RoleRepositoryContract.js';
+export { DepartmentRepositoryContract } from './domain/repositories/DepartmentRepositoryContract.js';
+export { OfficerRepositoryContract } from './domain/repositories/OfficerRepositoryContract.js';
+export { GovernmentComplaintRepositoryContract } from './domain/repositories/GovernmentComplaintRepositoryContract.js';
+export { AssignmentRepositoryContract } from './domain/repositories/AssignmentRepositoryContract.js';
+export { GovernmentWorkflowRepositoryContract } from './domain/repositories/GovernmentWorkflowRepositoryContract.js';
+export { NotificationRepositoryContract } from './domain/repositories/NotificationRepositoryContract.js';
+export { AuditLogRepositoryContract } from './domain/repositories/AuditLogRepositoryContract.js';
+
+// Feature Modules
+export { AuthContract, MockAuthService } from './modules/auth/AuthModule.js';
+export { RoleContract, MockRoleService } from './modules/roles/RoleModule.js';
+export { DepartmentContract, MockDepartmentService } from './modules/departments/DepartmentModule.js';
+export { OfficerContract, MockOfficerService } from './modules/officers/OfficerModule.js';
+export { GovernmentComplaintContract, MockGovernmentComplaintService } from './modules/complaints/GovernmentComplaintModule.js';
+export { AssignmentContract, MockAssignmentService } from './modules/assignments/AssignmentModule.js';
+export { ResolutionWorkflowContract, MockResolutionWorkflowService } from './modules/workflow/ResolutionWorkflowModule.js';
+export { GovernmentNotificationContract, MockGovernmentNotificationService } from './modules/notifications/GovernmentNotificationModule.js';
+export { GovernmentAnalyticsContract, MockGovernmentAnalyticsService } from './modules/analytics/GovernmentAnalyticsModule.js';
+export { AuditContract, MockAuditService } from './modules/audit/AuditModule.js';
+
+// Config, Errors, Logging, Mocks
+export { GovernmentConfig } from './infrastructure/config/government.config.js';
+export { GovernmentPlatformError } from './errors/GovernmentPlatformError.js';
+export { GovernmentLogger } from './logging/GovernmentLogger.js';
+export {
+  MockGovernmentUserRepository,
+  MockDepartmentRepository,
+  MockGovernmentComplaintRepository,
+} from './infrastructure/mocks/MockGovernmentRepositories.js';
