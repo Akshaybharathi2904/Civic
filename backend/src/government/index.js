@@ -161,9 +161,30 @@ export {
   EscalationController,
 } from './modules/escalation/index.js';
 
+export {
+  NotificationChannelEnum,
+  NotificationTypeEnum,
+  CitizenNotification,
+  NotificationPreference,
+  NotificationChannelStrategyContract,
+  InAppNotificationStrategy,
+  MockEmailNotificationStrategy,
+  MockSmsNotificationStrategy,
+  CreateNotificationDTO,
+  NotificationPreferenceDTO,
+  NotificationQueryDTO,
+  CitizenNotificationRepositoryContract,
+  MockCitizenNotificationRepository,
+  NotificationPreferenceRepositoryContract,
+  MockNotificationPreferenceRepository,
+  NotificationDispatcher,
+  CitizenNotificationServiceContract,
+  CitizenNotificationService,
+  CitizenNotificationController,
+} from './modules/notifications/index.js';
+
 export { GovernmentComplaintContract, MockGovernmentComplaintService } from './modules/complaints/GovernmentComplaintModule.js';
 export { ResolutionWorkflowContract, MockResolutionWorkflowService } from './modules/workflow/ResolutionWorkflowModule.js';
-export { GovernmentNotificationContract, MockGovernmentNotificationService } from './modules/notifications/GovernmentNotificationModule.js';
 export { GovernmentAnalyticsContract, MockGovernmentAnalyticsService } from './modules/analytics/GovernmentAnalyticsModule.js';
 export { AuditContract, MockAuditService } from './modules/audit/AuditModule.js';
 
