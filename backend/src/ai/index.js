@@ -1,4 +1,4 @@
-export { AgentOrchestrator } from './orchestrator/AgentOrchestrator.js';
+export { WorkflowOrchestrator, default as AgentOrchestrator } from './orchestrator/WorkflowOrchestrator.js';
 export { WorkflowEngine } from './workflow/WorkflowEngine.js';
 export { BaseAgent } from './agents/BaseAgent.js';
 export { AgentContext } from './models/AgentContext.js';
@@ -13,6 +13,11 @@ export { promptTemplates } from './prompts/promptTemplates.js';
 export { AgentAuditLogger } from './logging/AgentAuditLogger.js';
 export { AgentExecutionError } from './errors/AgentExecutionError.js';
 export { OrchestratorError } from './errors/OrchestratorError.js';
+
+// Orchestrator Utilities
+export { ResultAggregator } from './orchestrator/utils/ResultAggregator.js';
+export { RetryPolicy } from './orchestrator/utils/RetryPolicy.js';
+export { MockEventPublisher } from './orchestrator/services/MockEventPublisher.js';
 
 // Agent Exports
 export { ComplaintUnderstandingAgent } from './agents/ComplaintUnderstandingAgent.js';
