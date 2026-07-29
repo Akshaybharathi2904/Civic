@@ -2,23 +2,15 @@ import { BaseAgent } from './BaseAgent.js';
 
 export class EscalationAgent extends BaseAgent {
   constructor() {
-    super('Escalation Agent', 8);
+    super('Escalation Agent', 9, 'escalation');
   }
 
   async runInternal(context) {
-    const isCritical = context.priority?.output?.priorityLevel === 'Critical';
-
+    const isCritical = context.aiResults.priority?.priorityLevel === 'Critical';
     return {
-      status: 'success',
-      confidence: 0.96,
-      reasoning: isCritical
-        ? 'Critical hazard detected. Triggered emergency department head alert.'
-        : 'Standard SLA monitoring active. No escalation required.',
-      output: {
-        isEscalated: isCritical,
-        escalationLevel: isCritical ? 'Tier 1 Executive Alert' : 'Standard Queue',
-        tokenUsage: { promptTokens: 85, completionTokens: 30, totalTokens: 115 },
-      },
+      isEscalated: isCritical,
+      escalationReason: isCritical ? 'Emergency critical hazard flagged for immediate supervisor intervention.' : 'Standard priority triage, no immediate escalation required.',
+      confidence: 0.96
     };
   }
 }

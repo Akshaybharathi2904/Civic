@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { config } from '../config/env.js';
 import { prisma } from '../config/prisma.js';
-import { MOCK_USERS } from '../utils/seedData.js';
 
 export const protect = async (req, res, next) => {
   let token;
@@ -16,21 +15,18 @@ export const protect = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, config.jwtSecret);
-    let user = null;
 
-    try {
-      if (prisma) {
-        user = await prisma.user.findUnique({
-          where: { id: decoded.id },
-          include: { department: true }
-        });
-      }
-    } catch (err) {
-      user = null;
+    if (!prisma) {
+      return res.status(503).json({ message: 'Database not available' });
     }
 
+    const user = await prisma.user.findUnique({
+      where: { id: decoded.id },
+      include: { department: true }
+    });
+
     if (!user) {
-      user = MOCK_USERS.find((u) => u._id === decoded.id || u.id === decoded.id) || MOCK_USERS[0];
+      return res.status(401).json({ message: 'User not found or account removed' });
     }
 
     req.user = user;

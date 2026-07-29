@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import api from '../services/api';
 import { useAuth } from '../contexts/AuthContext';
+import { useSocket } from '../contexts/SocketContext';
 import { Complaint, CommentItem, StatusHistoryItem, AgentLog } from '../types';
 import { Timeline } from '../components/Timeline';
 import { StatusBadge, PriorityBadge } from '../components/Badges';
@@ -41,6 +42,7 @@ const JsonViewer: React.FC<{ data: any }> = ({ data }) => {
 export const ComplaintDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const { user } = useAuth();
+    const { joinComplaintRoom, latestComplaintUpdate, liveAgentSteps } = useSocket();
 
     const [data, setData] = useState<{
         complaint: Complaint;
@@ -61,9 +63,24 @@ export const ComplaintDetail: React.FC = () => {
     const [expandedLogId, setExpandedLogId] = useState<string | null>(null);
 
     useEffect(() => {
-        fetchDetail();
-        fetchAgentLogs();
+        if (id) {
+            joinComplaintRoom(id);
+            fetchDetail();
+            fetchAgentLogs();
+        }
     }, [id]);
+
+    useEffect(() => {
+        if (latestComplaintUpdate && (latestComplaintUpdate.id === id || (latestComplaintUpdate as any)._id === id)) {
+            setData((prev) => prev ? { ...prev, complaint: latestComplaintUpdate } : null);
+        }
+    }, [latestComplaintUpdate, id]);
+
+    useEffect(() => {
+        if (liveAgentSteps.length > 0) {
+            fetchAgentLogs();
+        }
+    }, [liveAgentSteps]);
 
     const fetchDetail = async () => {
         try {

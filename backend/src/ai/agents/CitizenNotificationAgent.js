@@ -2,23 +2,16 @@ import { BaseAgent } from './BaseAgent.js';
 
 export class CitizenNotificationAgent extends BaseAgent {
   constructor() {
-    super('Citizen Notification Agent', 10);
+    super('Citizen Notification Agent', 10, 'notification');
   }
 
   async runInternal(context) {
-    const ticketId = context.ticketId || 'CIV-10029';
-    const dept = context.routing?.output?.departmentName || 'Public Works Dept';
-
+    const dept = context.aiResults.department?.department || 'PWD';
     return {
-      status: 'success',
-      confidence: 0.99,
-      reasoning: `Dispatched SMS & Push notification for Ticket #${ticketId} assigned to ${dept}.`,
-      output: {
-        notificationSent: true,
-        channel: 'SMS / In-App Push',
-        message: `Your report #${ticketId} has been registered and routed to ${dept}.`,
-        tokenUsage: { promptTokens: 90, completionTokens: 30, totalTokens: 120 },
-      },
+      message: `Your complaint #${context.ticketId} has been successfully triaged and assigned to ${dept}.`,
+      channel: 'WebSocket & SMS',
+      sentAt: new Date().toISOString(),
+      confidence: 0.99
     };
   }
 }
